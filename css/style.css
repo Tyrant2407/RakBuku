@@ -15,15 +15,6 @@ button {
   font-size: 16px;
 }
 
-.head_bar {
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: cornflowerblue;
-  color: white;
-}
-
 main {
   max-width: 800px;
   width: 80%;
@@ -35,8 +26,9 @@ main {
   display: flex;
   flex-direction: column;
   padding: 16px;
-  border: 1px solid black;
-  border-radius: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 15px;
+  background-color: #ffffff;
 }
 
 .input_section > h2 {
@@ -87,46 +79,6 @@ main {
   margin-right: 10px;
 }
 
-.search_section {
-  margin: 16px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 16px;
-  border: 1px solid black;
-  border-radius: 10px;
-}
-
-.search_section > h2 {
-  color: cornflowerblue;
-}
-
-.search_section > form {
-  padding: 16px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: auto 1fr 0.5fr;
-  grid-gap: 10px;
-}
-
-.search_section > form > label {
-  display: flex;
-  align-items: center;
-}
-
-.search_section > form > input {
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.search_section > form > button {
-  background-color: cornflowerblue;
-  color: white;
-  border: 0;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .book_shelf {
   margin: 16px 0 0 0;
   border: 1px solid black;
@@ -168,37 +120,126 @@ p {
 }
 
 .book_shelf > .book_list > .book_item > .action > .red {
-  background-color: darkred;
+  background-color: rgb(203, 179, 179);
   color: white;
 }
 
 buttonEdit {
   color: rgb(255, 255, 255);
-  background-color: green; /* Green */
+  background-color: green;
   border: none;
-  padding: 13px 27px;
+  padding: 13px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  border-radius: 5px; /* Add rounded corners */
+  border-radius: 10px;
   cursor: pointer;
+}
+
+buttonEdit:hover {
+  font-weight: bold;
 }
 
 buttonDelete {
   color: rgb(255, 255, 255);
-  background-color: red; /* Green */
+  background-color: rgb(180, 5, 5);
   border: none;
   padding: 13px 27px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  border-radius: 5px; /* Add rounded corners */
+  border-radius: 10px;
   cursor: pointer;
   margin-left: 10px;
 }
 
-.book_item{
-  border: 1px solid #333; 
+buttonDelete:hover {
+  font-weight: bold;
+}
+
+.book_item {
+  border: 1px solid #ffffff;
+}
+
+.jumbotron {
+  font-size: 30px;
+  padding: 20px;
+  background-color: orange;
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.navbar {
+  background-color: #121729;
+  overflow: hidden;
+  padding: 15px;
+  position: sticky;
+  top: 0;
+}
+
+.navbar ul {
+  padding-inline: 4rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar li {
+  list-style-type: none;
+  margin-top: 5px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #d7ab84;
+  display: block;
+  text-align: center;
+  font-weight: 400;
+  font-size: 30px;
+  float: left;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+  color: rgb(255, 255, 255);
+  text-underline-offset: 12px;
+  font-weight: bold;
+}
+
+.navbar .search-container {
+  float: right;
+}
+
+.navbar input[type="text"] {
+  padding: 6px;
+  margin-top: 10px;
+  font-size: 17px;
+  border: none;
+}
+
+.navbar .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 10px;
+  margin-right: 16px;
+  background: #dfd4d4;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  color: black;
+}
+
+.navbar .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  nav .search-container {
+    float: none;
+  }
+
+  nav input[type="text"] {
+    border: 1px solid #ccc;
+  }
 }

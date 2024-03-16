@@ -76,13 +76,13 @@ function makeBook(bookObject) {
   textContainer.classList.add("inner");
 
   const titleBook = document.createElement("h3");
-  titleBook.innerText = bookObject.title;
+  titleBook.innerText = `Judul Buku: ${bookObject.title}`;
 
   const authorBook = document.createElement("p");
   authorBook.innerText = `Author: ${bookObject.author}`;
 
   const yearBook = document.createElement("p");
-  yearBook.innerText = `Year: ${bookObject.year}`; 
+  yearBook.innerText = `Year: ${bookObject.year}`;
 
   textContainer.append(titleBook, authorBook, yearBook);
   container.append(textContainer);
@@ -91,7 +91,13 @@ function makeBook(bookObject) {
   buttonContainer.classList.add("button-container");
 
   const editButton = document.createElement("buttonEdit");
-  editButton.innerText = bookObject.isCompleted ? "Belum Selesai Dibaca" : "Selesai Dibaca";
+
+  if (bookObject.isCompleted) {
+    editButton.innerText = "Belum Dibaca";
+  } else {
+    editButton.innerText = "Selesai Dibaca";
+  }
+  
   editButton.addEventListener("click", function () {
     const bookId = parseInt(this.parentNode.parentNode.id.split("-")[1]);
     const bookIndex = books.findIndex((book) => book.id === bookId);
@@ -119,16 +125,18 @@ function makeBook(bookObject) {
 
   const deleteButton = document.createElement("buttonDelete");
   deleteButton.innerText = "Delete";
+
   deleteButton.addEventListener("click", function () {
-    const bookIndex = books.findIndex((book) => book.id === bookObject.id);
-    if (bookIndex !== -1) {
-      books.splice(bookIndex, 1);
-      saveBooks();
-      document.dispatchEvent(new Event(RENDER_EVENT));
-    } else {
-      saveBooks();
-      console.error("Book not found for deletion");
-    }
+    const confirmation = confirm("Apakah anda setuju untuk menghapus buku ini?");
+
+    if (confirmation) {
+      const bookIndex = books.findIndex((book) => book.id === bookObject.id);
+      if (bookIndex !== -1) {
+        books.splice(bookIndex, 1);
+        saveBooks();
+        document.dispatchEvent(new Event(RENDER_EVENT));
+      } 
+    } 
   });
 
   buttonContainer.append(editButton, deleteButton);
@@ -151,42 +159,30 @@ document.addEventListener(RENDER_EVENT, function () {
   }
 });
 
-// document.getElementById("searchSubmit").addEventListener("click", function (event) {
-//   event.preventDefault();
-
-//   const cariBuku = document.getElementById("searchBookTitle").value.toLowerCase();
-//   const listBuku = document.querySelectorAll(".book_item");
-// let filteredBooks = [];
-
-//   for (const dataBuku of listBuku) {
-//     if (dataBuku.innerText.toLowerCase().includes(cariBuku)) {
-//       dataBuku.parentElement.parentElement.style.display = "block";
-//     } else {
-//       dataBuku.parentElement.parentElement.style.display = "none";
-//     }
-//   }
-// });
-
-
 // Fungsi untuk mencari buku berdasarkan judul
+function cariBuku(bookItems, filteredBooks) {
+  for (const bookItem of bookItems) {
+    if (filteredBooks.includes(bookItem)) {
+      bookItem.style.display = "block";
+    } else {
+      bookItem.style.display = "none";
+    }
+  }
+}
 
-document.getElementById('searchSubmit').addEventListener("click", function (event) {
+document.getElementById("searchSubmit").addEventListener("click", function (event) {
   event.preventDefault();
 
-  const searchText = document.getElementById('searchBookTitle').value.toLowerCase();
-
-  const bookItems = document.querySelectorAll('.book_item');
+  const searchText = document.getElementById("searchBookTitle").value.toLowerCase();
+  const bookItems = document.querySelectorAll(".book_item");
   let filteredBooks = [];
 
   for (const bookItem of bookItems) {
-    const bookTitle = bookItem.querySelector('h3')?.textContent.toLowerCase() || '';
-
+    const bookTitle = bookItem.querySelector("h3").textContent.toLowerCase();
     if (bookTitle && bookTitle.includes(searchText)) {
-      filteredBooks.push(bookItem); 
+      filteredBooks.push(bookItem);
     }
   }
 
-  bookItems.forEach(bookItem => {
-    bookItem.style.display = filteredBooks.includes(bookItem) ? 'block' : 'none';
-  });
+  cariBuku(bookItems, filteredBooks);
 });
